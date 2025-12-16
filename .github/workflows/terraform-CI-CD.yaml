@@ -14,8 +14,8 @@ env:
   TF_WORKING_DIR: enviorment/dev_parents
 
 jobs:
-  terraform-plan:
-    name: Terraform Plan
+  terraform:
+    name: Terraform Plan & Apply
     runs-on: ubuntu-latest
 
     steps:
@@ -48,4 +48,8 @@ jobs:
 
       - name: Terraform Plan
         working-directory: ${{ env.TF_WORKING_DIR }}
-        run: terraform plan
+        run: terraform plan -out=tfplan
+
+      - name: Terraform Apply
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        run: terraform apply -auto-approve tfplan
