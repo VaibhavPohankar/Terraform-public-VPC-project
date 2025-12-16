@@ -3,6 +3,14 @@ name: Terraform CI/CD Pipeline
 on:
   push:
     branches: [ main ]
+   
+
+    permissions:
+  id-token: write
+  contents: read
+
+    - name: Debug role ARN
+  run: echo "ROLE=${{ secrets.OIDC_ROLE_ARN }}"
 
 env:
   AWS_REGION: ap-south-1
@@ -26,7 +34,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.OIDC_ROLE_ARN }}
-          aws-region: ap-south-1
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -93,4 +101,3 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
         working-directory: ${{ env.TF_WORKING_DIR }}
-
