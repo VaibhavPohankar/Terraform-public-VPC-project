@@ -47,16 +47,16 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
         run: terraform init -input=false
 
-      - name: Terraform Plan
-        working-directory: ${{ env.TF_WORKING_DIR }}
-        run: terraform plan -out=tfplan
+      #- name: Terraform Plan
+       # working-directory: ${{ env.TF_WORKING_DIR }}
+        #run: terraform plan -out=tfplan
 
-      - name: Terraform Apply
-        working-directory: ${{ env.TF_WORKING_DIR }}
-        run: terraform apply -auto-approve tfplan
+      #- name: Terraform Apply
+       # working-directory: ${{ env.TF_WORKING_DIR }}
+        #run: terraform apply -auto-approve tfplan
 
         
-      #- name: Terraform Destroy
-        #working-directory: ${{ env.TF_WORKING_DIR }}
-        #run: terraform destroy -auto-approve 
+      - name: Terraform Destroy
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        run: terraform destroy -auto-approve 
 
